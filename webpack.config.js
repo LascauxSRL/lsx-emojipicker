@@ -36,6 +36,7 @@ module.exports = (env) => {
 
     return {
         entry: [
+            __dirname + '/src/jquery.lsxemojipicker.css',
             __dirname + '/src/jquery.lsxemojipicker.js'
         ],
         devtool: 'source-map',

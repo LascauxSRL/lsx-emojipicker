@@ -1,5 +1,4 @@
 
-require("./jquery.lsxemojipicker.css");
 (function ($, win) {
     'use strict';
 
@@ -663,7 +662,8 @@ require("./jquery.lsxemojipicker.css");
         }, options);
 
         this.css('position', 'relative');
-
+        var appender = $('<div></div>')
+            .addClass('lsx-emojipicker-appender');
         var container = $('<div></div>')
             .addClass('lsx-emojipicker-container')
             .css({
@@ -749,7 +749,8 @@ require("./jquery.lsxemojipicker.css");
                .append(emojiObjectContainer);
         wrapper.append(tabs);
         container.append(wrapper);
-        this.append(container);
+        appender.append(container);
+        this.append(appender);
 
         
         if(settings.twemoji){
