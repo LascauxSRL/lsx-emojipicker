@@ -10,7 +10,7 @@ var APP_NAME = 'jquery.lsxemojipicker';
 outputFile = APP_NAME + '.min.js';
 
 module.exports = (env) => {
-    if(env === 'production'){
+    if(false && env === 'production'){
         console.log('Production mode enabled');
         plugins.push(new webpack.optimize.UglifyJsPlugin({
             beautify: false,
