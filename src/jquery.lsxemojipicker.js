@@ -796,7 +796,7 @@ function applyLsxEmojiPlugin($, win) {
 };
 
 if (typeof(window.applyPlugin) === 'undefined') {
-    window.applyPlugin = function(jq){
+    window.applyLsxEmojiPlugin = function(jq){
         applyLsxEmojiPlugin(jq, window);
     }
 }
