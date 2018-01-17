@@ -17,5 +17,12 @@
     "style-loader": "^0.18.0",
     "uglifyjs-webpack-plugin": "1.1.2",
     "webpack": "3.10.0"
-  }
+  },
+  "contributors": [
+    {
+      "name": "Lorenzo Cioni",
+      "email": "lorenzo.cioni@lascaux.it",
+      "url": "https://github.com/lorecioni"
+    }
+  ]
 }
