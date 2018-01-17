@@ -10,14 +10,18 @@
 		<h1>jQuery Emoji picker plugin</h1>
         <p>Pagina per test jQuery Emoji picker plugin</p>
         
-        <button class="picker">Click me!</button>
+        <button style="margin-top: 300px;margin-left: 250px;"class="picker">Click me!</button>
         <div class="container"></div>
     </div>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     
 	<script src="jquery.lsxemojipicker.js"></script>
     <script>
-        $('.picker').lsxEmojiPicker();
+        $('.picker').lsxEmojiPicker({
+            onSelect: function(emoji){
+                console.log(emoji);
+            }
+        });
 	</script>
 </body>
 </html>

@@ -1,3 +1,5 @@
+
+require("./jquery.lsxemojipicker.css");
 (function ($, window) {
     'use strict';
 
@@ -7,7 +9,6 @@
             {'name': 'smiley', 'value': '&#x1f603'},
             {'name': 'grinning', 'value': '&#x1f600'},
             {'name': 'blush', 'value': '&#x1f60a'},
-            {'name': 'relaxed', 'value': '&#x263a'},
             {'name': 'wink', 'value': '&#x1f609'},
             {'name': 'heart-eyes', 'value': '&#x1f60d'},
             {'name': 'kissing-heart', 'value': '&#x1f618'},
@@ -649,55 +650,149 @@
         ]
     }
 
+    var settings = {};
+
     $.fn.lsxEmojiPicker = function (options) {
 
         // Overriding default options
-        var settings = $.extend({
+        settings = $.extend({
+            width: 220,
+            height: 200,
+            twemoji: false,
+            onSelect: function(em){}
         }, options);
 
         this.css('position', 'relative');
 
         var container = $('<div></div>')
+            .addClass('lsx-emojipicker-container')
             .css({
-                'position': 'absolute'
-            })
-            .addClass('lsx-emojipicker-container');
+                'top': -(settings.height + 70)
+            });
+        var wrapper = $('<div></div>')
+            .addClass('lsx-emojipicker-wrapper');
+
+        var spinnerContainer = $('<div></div>')
+            .addClass('spinner-container');
+        var spinner = $('<div></div>')
+            .addClass('loader');
+        spinnerContainer.append(spinner);
+
+        var emojiPeopleContainer = $('<div></div>')
+            .addClass('lsx-emojipicker-emoji lsx-emoji-tab lsx-emoji-people')
+            .css({'width': settings.width, 'height': settings.height});
+        var emojiNatureContainer = $('<div></div>')
+            .addClass('lsx-emojipicker-emoji lsx-emoji-tab lsx-emoji-nature hidden')
+            .css({'width': settings.width, 'height': settings.height});
+        var emojiPlaceContainer = $('<div></div>')
+            .addClass('lsx-emojipicker-emoji lsx-emoji-tab lsx-emoji-place hidden')
+            .css({'width': settings.width, 'height': settings.height});
+        var emojiObjectContainer = $('<div></div>')
+            .addClass('lsx-emojipicker-emoji lsx-emoji-tab lsx-emoji-object hidden')
+            .css({'width': settings.width, 'height': settings.height});
 
         var tabs = $('<ul></ul>')
             .addClass('lsx-emojipicker-tabs');
-        
+    
         var peopleEmoji = $('<li></li>')
             .addClass('selected')
-            .html(emoji['people'][1].value);
+            .html(emoji['people'][1].value)
+            .click(function(e){
+                e.preventDefault();
+                $('ul.lsx-emojipicker-tabs li').removeClass('selected');
+                $(this).addClass('selected');
+                $('.lsx-emoji-tab').addClass('hidden');
+                emojiPeopleContainer.removeClass('hidden');
+            });
         var natureEmoji = $('<li></li>')
-            .html(emoji['nature'][0].value);
+            .html(emoji['nature'][0].value)
+            .click(function(e){
+                e.preventDefault();
+                $('ul.lsx-emojipicker-tabs li').removeClass('selected');
+                $(this).addClass('selected');
+                $('.lsx-emoji-tab').addClass('hidden');
+                emojiNatureContainer.removeClass('hidden');
+            });
+        var placeEmoji = $('<li></li>')
+            .html(emoji['place'][38].value)
+            .click(function(e){
+                e.preventDefault();
+                $('ul.lsx-emojipicker-tabs li').removeClass('selected');
+                $(this).addClass('selected');
+                $('.lsx-emoji-tab').addClass('hidden');
+                emojiPlaceContainer.removeClass('hidden');
+            });
+        var objectEmoji = $('<li></li>')
+            .html(emoji['object'][4].value)
+            .click(function(e){
+                e.preventDefault();
+                $('ul.lsx-emojipicker-tabs li').removeClass('selected');
+                $(this).addClass('selected');
+                $('.lsx-emoji-tab').addClass('hidden');
+                emojiObjectContainer.removeClass('hidden');
+            });
 
-        tabs.append(peopleEmoji).append(natureEmoji);
-        container.append(tabs);
+        tabs.append(peopleEmoji)
+            .append(natureEmoji)
+            .append(placeEmoji)
+            .append(objectEmoji);
 
-        var emojiContainer = $('<div></div>')
-            .addClass('lsx-emojipicker-emoji lsx-emoji-tab');
+        createEmojiTab('people', emojiPeopleContainer);
+        createEmojiTab('nature', emojiNatureContainer);
+        createEmojiTab('place', emojiPlaceContainer);
+        createEmojiTab('object', emojiObjectContainer);
 
-        for(var i = 0; i < emoji['people'].length; i++){
-            var emoticon = $('<span></span>')
-                .attr('title', emoji['people'][i].name)
-                .html(emoji['people'][i].value);
-            emojiContainer.append(emoticon);
-
-        }
-        container.append(emojiContainer);
+        //wrapper.append(spinnerContainer);
+        wrapper.append(emojiPeopleContainer)
+               .append(emojiNatureContainer)
+               .append(emojiPlaceContainer)
+               .append(emojiObjectContainer);
+        wrapper.append(tabs);
+        container.append(wrapper);
         this.append(container);
 
-       // $('.container').empty()
-        //for(var i = 0; i < emoji['people'].length; i++){
-         //   $('.container').append('<span>' +  emoji['people'][i].value + '</span>');
-        //}
+        
+        if(settings.twemoji){
+            twemoji.parse(emojiPeopleContainer[0], {size: 72});
+            twemoji.parse(emojiNatureContainer[0], {size: 72});
+            twemoji.parse(emojiPlaceContainer[0], {size: 72});
+            twemoji.parse(emojiObjectContainer[0], {size: 72});
+            twemoji.parse(tabs[0], {size: 72});
+        }
 
-        //var elements = document.getElementsByName('span')[0];
-        twemoji.parse(emojiContainer[0], {size: 72});
-        twemoji.parse(tabs[0], {size: 72});
+        this.click(function(e){
+            e.preventDefault();
+            if(!$(e.target).parent().hasClass('lsx-emojipicker-tabs')){
+                if(container.is(':visible')){
+                    container.hide();
+                } else {
+                    container.fadeIn();
+                }
+            }
+        });
         
         // Apply the plugin to the selected elements
         return this;
     }
+
+    function createEmojiTab(type, container){
+        for(var i = 0; i < emoji[type].length; i++){
+            var selectedEmoji = emoji[type][i];
+            var emoticon = $('<span></span>')
+                .data('value', selectedEmoji.value)
+                .attr('title', selectedEmoji.name)
+                .html(selectedEmoji.value);
+            
+            emoticon.click(function(e){
+                e.preventDefault();
+                settings.onSelect({
+                    'name': $(this).attr('title'),
+                    'value': $(this).data('value')
+                });
+            });
+            container.append(emoticon);
+        }
+    }
+
+
 }(jQuery, window));
