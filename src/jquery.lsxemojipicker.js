@@ -1,6 +1,6 @@
 
 require("./jquery.lsxemojipicker.css");
-function applyLsxEmojiPlugin($, win) {
+(function ($, win) {
     'use strict';
 
     var emoji = {
@@ -793,10 +793,4 @@ function applyLsxEmojiPlugin($, win) {
             container.append(emoticon);
         }
     }
-};
-
-if (typeof(window.applyPlugin) === 'undefined') {
-    window.applyLsxEmojiPlugin = function(jq){
-        applyLsxEmojiPlugin(jq, window);
-    }
-}
+}(jQuery, window));
