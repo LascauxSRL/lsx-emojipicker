@@ -1,0 +1,52 @@
+.lsx-emojipicker-emoji span {
+    display: inline-block;
+}
+.lsx-emojipicker-container {
+    background: #ffffff;
+    box-shadow: 0px 0px 10px #ccc;
+    border-radius: 5px;
+    z-index: 99999999999;
+}
+ul.lsx-emojipicker-tabs {
+    margin: 0;
+    padding: 0 10px;
+    list-style: none;
+    text-align: left;
+    background: #efefef;
+    border-radius: 3px 3px 0 0;
+}
+ul.lsx-emojipicker-tabs li {
+    display: inline-block;
+    text-align: left;
+}
+.lsx-emojipicker-tabs img.emoji {
+    width: 22px;
+    margin: 5px 10px;
+    opacity: 0.5;
+    cursor: pointer;
+}
+.lsx-emojipicker-tabs img.emoji:HOVER,
+.lsx-emojipicker-tabs li.selected img.emoji {
+    opacity: 1;
+}
+.lsx-emojipicker-emoji span img.emoji {
+    width: 25px;
+    margin: 5px 2px;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    -webkit-transition: all 0.1s ease-in-out;
+}
+.lsx-emojipicker-emoji.lsx-emoji-tab {
+    width: 250px;
+    padding: 8px;
+    height: 200px;
+    overflow: auto;
+}
+.lsx-emojipicker-emoji span img.emoji:HOVER {
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+}
+ul.lsx-emojipicker-tabs li.selected {
+    border-bottom: 2px solid #b5b5b5;
+}
