@@ -661,7 +661,6 @@
             onSelect: function(em){}
         }, options);
 
-        this.css('position', 'relative');
         var appender = $('<div></div>')
             .addClass('lsx-emojipicker-appender');
         var container = $('<div></div>')
