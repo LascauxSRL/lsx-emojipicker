@@ -658,6 +658,7 @@
             width: 220,
             height: 200,
             twemoji: false,
+            closeOnSelect: true,
             onSelect: function(em){}
         }, options);
 
@@ -762,7 +763,7 @@
 
         this.click(function(e){
             e.preventDefault();
-            if(!$(e.target).parent().hasClass('lsx-emojipicker-tabs')){
+            if(!$(e.target).parent().hasClass('lsx-emojipicker-tabs') && settings.closeOnSelect){
                 if(container.is(':visible')){
                     container.hide();
                 } else {
