@@ -764,6 +764,7 @@
         this.click(function(e){
             e.preventDefault();
             if(!$(e.target).parent().hasClass('lsx-emojipicker-tabs') 
+                && !$(e.target).parent().parent().hasClass('lsx-emojipicker-tabs') 
                 && !$(e.target).parent().hasClass('lsx-emoji-tab')
                 && !$(e.target).parent().parent().hasClass('lsx-emoji-tab')){
                 if(container.is(':visible')){
