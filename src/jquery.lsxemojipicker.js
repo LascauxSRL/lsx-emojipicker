@@ -737,10 +737,10 @@
             .append(placeEmoji)
             .append(objectEmoji);
 
-        createEmojiTab('people', emojiPeopleContainer);
-        createEmojiTab('nature', emojiNatureContainer);
-        createEmojiTab('place', emojiPlaceContainer);
-        createEmojiTab('object', emojiObjectContainer);
+        createEmojiTab('people', emojiPeopleContainer, container);
+        createEmojiTab('nature', emojiNatureContainer, container);
+        createEmojiTab('place', emojiPlaceContainer, container);
+        createEmojiTab('object', emojiObjectContainer, container);
 
         //wrapper.append(spinnerContainer);
         wrapper.append(emojiPeopleContainer)
@@ -763,7 +763,8 @@
 
         this.click(function(e){
             e.preventDefault();
-            if(!$(e.target).parent().hasClass('lsx-emojipicker-tabs') && settings.closeOnSelect){
+            if(!$(e.target).parent().hasClass('lsx-emojipicker-tabs') 
+                && !$(e.target).parent().hasClass('lsx-emoji-tab')){
                 if(container.is(':visible')){
                     container.hide();
                 } else {
@@ -776,7 +777,7 @@
         return this;
     }
 
-    function createEmojiTab(type, container){
+    function createEmojiTab(type, container, wrapper){
         for(var i = 0; i < emoji[type].length; i++){
             var selectedEmoji = emoji[type][i];
             var emoticon = $('<span></span>')
@@ -790,6 +791,9 @@
                     'name': $(this).attr('title'),
                     'value': $(this).data('value')
                 });
+                if(settings.closeOnSelect){
+                    wrapper.hide();
+                }
             });
             container.append(emoticon);
         }
